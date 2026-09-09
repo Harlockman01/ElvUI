@@ -17,8 +17,21 @@ jobs:
       - name: Empaquetar Addon (Inyectar librerías)
         uses: BigWigsMods/packager@v2
 
+      - name: Forzar la creación del archivo ZIP manual
+        run: |
+          # Creamos un directorio de salida y movemos las carpetas ya procesadas con sus librerías inyectadas
+          mkdir elvui_compilado
+          cp -r ElvUI elvui_compilado/
+          cp -r ElvUI_Libraries elvui_compilado/
+          cp -r ElvUI_Options elvui_compilado/
+          
+          # Comprimimos la carpeta contenedora en un archivo ZIP real
+          cd elvui_compilado
+          zip -r ../ElvUI-v14.03-Listo.zip ElvUI ElvUI_Libraries ElvUI_Options
+          cd ..
+
       - name: Subir archivo comprimido listo
         uses: actions/upload-artifact@v4
         with:
           name: ElvUI-v14.03-Listo
-          path: "**/*.zip" # <-- Esta ruta buscará cualquier archivo .zip en cualquier carpeta generada
+          path: ElvUI-v14.03-Listo.zip # <-- Apunta directamente al ZIP creado manualmente en el paso anterior
