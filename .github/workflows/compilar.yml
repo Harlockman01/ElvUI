@@ -10,8 +10,8 @@ jobs:
       - name: Descargar v14.03 directamente de Tukui
         uses: actions/checkout@v4
         with:
-          repository: 'tukui-org/ElvUI' # <-- Cambiamos tu repositorio por el original
-          ref: 'refs/tags/v14.03'       # <-- Aquí sí va a encontrar la etiqueta oficial
+          repository: 'tukui-org/ElvUI'
+          ref: 'refs/tags/v14.03'
           fetch-depth: 0
 
       - name: Empaquetar Addon (Inyectar librerías)
@@ -21,4 +21,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ElvUI-v14.03-Listo
-          path: ./.shadow-images/*.zip
+          path: "**/*.zip" # <-- Esta ruta buscará cualquier archivo .zip en cualquier carpeta generada
