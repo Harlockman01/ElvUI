@@ -7,11 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout de la versión v14.03
+      - name: Descargar v14.03 directamente de Tukui
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}
-          ref: 'refs/tags/v14.03' # <-- Esto le ordena bajarse la 14.03 sin importar que tu fork esté en la última versión
+          repository: 'tukui-org/ElvUI' # <-- Cambiamos tu repositorio por el original
+          ref: 'refs/tags/v14.03'       # <-- Aquí sí va a encontrar la etiqueta oficial
           fetch-depth: 0
 
       - name: Empaquetar Addon (Inyectar librerías)
@@ -21,4 +21,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ElvUI-v14.03-Listo
-          path: ./.shadow-images/*.zip # Busca cualquier archivo .zip generado en la ruta del empaquetador
+          path: ./.shadow-images/*.zip
