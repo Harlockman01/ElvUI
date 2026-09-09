@@ -1,4 +1,4 @@
-name: Compilar ElvUI v14.03 Especial
+name: Compilar ElvUI v14.02 Especial
 
 on:
   workflow_dispatch: # Activa el botón manual
@@ -7,11 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Descargar v14.03 directamente de Tukui
+      - name: Descargar v14.02 directamente de Tukui
         uses: actions/checkout@v4
         with:
           repository: 'tukui-org/ElvUI'
-          ref: 'refs/tags/v14.03'
+          ref: 'refs/tags/v14.02' # <-- Cambiado específicamente para compilar la versión 14.02
           fetch-depth: 0
 
       - name: Empaquetar Addon (Inyectar librerías)
@@ -19,19 +19,19 @@ jobs:
 
       - name: Forzar la creación del archivo ZIP manual
         run: |
-          # Creamos un directorio de salida y movemos las carpetas ya procesadas con sus librerías inyectadas
+          # Creamos un directorio de salida y copiamos las carpetas procesadas
           mkdir elvui_compilado
           cp -r ElvUI elvui_compilado/
           cp -r ElvUI_Libraries elvui_compilado/
           cp -r ElvUI_Options elvui_compilado/
           
-          # Comprimimos la carpeta contenedora en un archivo ZIP real
+          # Comprimimos la estructura limpia en el ZIP final
           cd elvui_compilado
-          zip -r ../ElvUI-v14.03-Listo.zip ElvUI ElvUI_Libraries ElvUI_Options
+          zip -r ../ElvUI-v14.02-Listo.zip ElvUI ElvUI_Libraries ElvUI_Options
           cd ..
 
       - name: Subir archivo comprimido listo
         uses: actions/upload-artifact@v4
         with:
-          name: ElvUI-v14.03-Listo
-          path: ElvUI-v14.03-Listo.zip # <-- Apunta directamente al ZIP creado manualmente en el paso anterior
+          name: ElvUI-v14.02-Listo
+          path: ElvUI-v14.02-Listo.zip
